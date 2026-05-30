@@ -28,6 +28,17 @@ wrangler secret put EMAIL_API_KEY
 
 If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to deterministic FIFA-ranking picks. If `EMAIL_API_KEY` is missing, magic-link tokens are created without sending email and the development response includes the link.
 
+## Deployment
+
+Deployments run from `.github/workflows/deploy.yml` on pushes to `main` or from a manual workflow dispatch. The workflow installs dependencies, runs `npm run verify`, deploys the Worker with Wrangler, then deploys `frontend/dist` to Cloudflare Pages.
+
+Configure these GitHub repository secrets:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+The Cloudflare Pages project defaults to `stratabracket`. To use another project name, set the GitHub repository variable `CLOUDFLARE_PAGES_PROJECT_NAME`.
+
 ## Verification
 
 ```bash
