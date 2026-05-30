@@ -41,7 +41,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: worker
-          command: deploy
+          command: deploy --env production
 
       - name: Deploy Pages
         uses: cloudflare/wrangler-action@v3

@@ -23,14 +23,13 @@ wrangler d1 execute stratabracket-db --local --file=./worker/seed.sql
 
 ```bash
 wrangler secret put ANTHROPIC_API_KEY
-wrangler secret put EMAIL_API_KEY
 ```
 
-If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to deterministic FIFA-ranking picks. If `EMAIL_API_KEY` is missing, magic-link tokens are created without sending email and the development response includes the link.
+If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to deterministic FIFA-ranking picks. Magic-link email is sent through the Cloudflare Email Service binding named `EMAIL`; when that binding is unavailable locally, magic-link tokens are created without sending email and the development response includes the link.
 
 ## Deployment
 
-Deployments run from `.github/workflows/deploy.yml` on pushes to `main` or from a manual workflow dispatch. The workflow installs dependencies, runs `npm run verify`, deploys the Worker with Wrangler, then deploys `frontend/dist` to Cloudflare Pages.
+Deployments run from `.github/workflows/deploy.yml` on pushes to `main` or from a manual workflow dispatch. The workflow installs dependencies, runs `npm run verify`, deploys the Worker with Wrangler, then deploys `frontend/dist` to Cloudflare Pages. The production app is configured for `https://sb.smyth.dev`, with `/api/*` routed to the Worker and the SPA served by Cloudflare Pages.
 
 Configure these GitHub repository secrets:
 
@@ -38,6 +37,8 @@ Configure these GitHub repository secrets:
 - `CLOUDFLARE_ACCOUNT_ID`
 
 The Cloudflare Pages project defaults to `stratabracket`. To use another project name, set the GitHub repository variable `CLOUDFLARE_PAGES_PROJECT_NAME`.
+
+Before deploying, onboard `smyth.dev` in Cloudflare Email Sending and authorize `login@smyth.dev` as a sender. Add `sb.smyth.dev` as a custom domain on the Cloudflare Pages project.
 
 ## Verification
 
