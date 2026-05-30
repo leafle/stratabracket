@@ -1,15 +1,24 @@
 import type { Env } from "../types";
 
-const sender = { email: "login@smyth.dev", name: "StrataBracket" };
-
 export async function sendMagicLinkEmail(env: Env, email: string, magicLinkUrl: string): Promise<void> {
-  if (!env.EMAIL) return;
+  if (!env.RESEND_API_KEY) return;
 
-  await env.EMAIL.send({
-    from: sender,
-    to: email,
-    subject: "Your StrataBracket sign-in link",
-    html: `<p>Use this link to sign in to StrataBracket:</p><p><a href="${magicLinkUrl}">Sign in</a></p>`,
-    text: `Use this link to sign in to StrataBracket: ${magicLinkUrl}`
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: "StrataBracket <login@smyth.dev>",
+      to: email,
+      subject: "Your StrataBracket sign-in link",
+      html: `<p>Use this link to sign in to StrataBracket:</p><p><a href="${magicLinkUrl}">Sign in</a></p>`,
+      text: `Use this link to sign in to StrataBracket: ${magicLinkUrl}`
+    })
   });
+
+  if (!response.ok) {
+    throw new Error(`Email provider failed with status ${response.status}`);
+  }
 }

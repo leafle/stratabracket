@@ -23,10 +23,6 @@ binding = "DB"
 database_name = "stratabracket-db"
 database_id = "771cecde-da04-4829-8c00-f3a1624bbc39"
 
-[[env.production.send_email]]
-name = "EMAIL"
-allowed_sender_addresses = ["login@smyth.dev"]
-
 [env.production.vars]
 ENVIRONMENT = "production"
 APP_ORIGIN = "https://sb.smyth.dev"

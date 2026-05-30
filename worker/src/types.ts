@@ -3,8 +3,8 @@ export type Round = "R16" | "QF" | "SF" | "F" | "CHAMPION";
 
 export interface Env {
   DB: D1Database;
-  EMAIL?: SendEmail;
   ANTHROPIC_API_KEY?: string;
+  RESEND_API_KEY?: string;
   ENVIRONMENT?: string;
   APP_ORIGIN?: string;
 }

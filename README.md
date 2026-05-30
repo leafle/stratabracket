@@ -23,9 +23,10 @@ wrangler d1 execute stratabracket-db --local --file=./worker/seed.sql
 
 ```bash
 wrangler secret put ANTHROPIC_API_KEY
+wrangler secret put RESEND_API_KEY
 ```
 
-If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to deterministic FIFA-ranking picks. Magic-link email is sent through the Cloudflare Email Service binding named `EMAIL`; when that binding is unavailable locally, magic-link tokens are created without sending email and the development response includes the link.
+If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to deterministic FIFA-ranking picks. Magic-link email is sent through Resend with `login@smyth.dev`; when `RESEND_API_KEY` is missing locally, magic-link tokens are created without sending email and the development response includes the link.
 
 ## Deployment
 
@@ -38,7 +39,7 @@ Configure these GitHub repository secrets:
 
 The Cloudflare Pages project defaults to `stratabracket`. To use another project name, set the GitHub repository variable `CLOUDFLARE_PAGES_PROJECT_NAME`.
 
-Before deploying, onboard `smyth.dev` in Cloudflare Email Sending and authorize `login@smyth.dev` as a sender. Add `sb.smyth.dev` as a custom domain on the Cloudflare Pages project.
+Before deploying, verify `smyth.dev` in Resend and add the required DNS records in Cloudflare. Add `sb.smyth.dev` as a custom domain on the Cloudflare Pages project.
 
 ## Verification
 
