@@ -1,0 +1,9 @@
+services:
+  verify:
+    build:
+      context: .
+      dockerfile: Dockerfile.verify
+    environment:
+      CI: "1"
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    command: npm run verify

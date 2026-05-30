@@ -1,0 +1,10 @@
+.git
+.worktrees
+node_modules
+coverage
+dist
+frontend/dist
+worker/.wrangler
+test-results
+playwright-report
+*.tsbuildinfo

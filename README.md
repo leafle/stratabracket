@@ -32,6 +32,28 @@ If `ANTHROPIC_API_KEY` is missing locally, bracket generation falls back to dete
 
 ```bash
 npm test
+npm run test:coverage
+npm run test:integration
+npm run test:e2e
 npm run typecheck
 npm run build
 ```
+
+`npm run test:unit` runs the fast Vitest suite for worker services, route contracts, and frontend utilities.
+`npm run test:coverage` uses the same suite with V8 coverage reporting in `coverage/`.
+
+`npm run test:integration` seeds the local Wrangler D1 database, starts the Worker on `127.0.0.1:8787`, and runs API flow tests against the live HTTP server.
+
+`npm run test:e2e` starts both the local Worker and the Vite frontend, then runs Playwright Chromium tests against the SPA. On a new machine, install the local browser once with:
+
+```bash
+npx playwright install chromium
+```
+
+For machine-independent verification, run everything inside Docker:
+
+```bash
+docker compose run --rm verify
+```
+
+The Docker image is based on Playwright's browser image, so it includes the headless browser runtime and only requires Docker on the host.
