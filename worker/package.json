@@ -1,0 +1,20 @@
+{
+  "name": "@stratabracket/worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "dev": "wrangler dev --local",
+    "deploy": "wrangler deploy",
+    "db:local": "wrangler d1 execute stratabracket-db --local --file=./schema.sql"
+  },
+  "dependencies": {
+    "hono": "^4.8.0",
+    "nanoid": "^5.1.5",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.18.0"
+  }
+}
