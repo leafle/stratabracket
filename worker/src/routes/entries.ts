@@ -40,7 +40,15 @@ entries.post("/:id/entry/generate", async (c) => {
 
   const strategyText = entry.strategy_text ?? "";
   const context = await loadTournamentContext(c.env.DB);
+  if (context.matches.length === 0 || context.teams.length === 0) {
+    return c.json({ error: "Tournament data is not loaded" }, 409);
+  }
+
   const generatedPicks = await generateBracket(strategyText, context, c.env);
+  if (generatedPicks.length === 0) {
+    return c.json({ error: "Bracket generation returned no picks" }, 502);
+  }
+
   await replacePicks(c.env.DB, entry.id, generatedPicks);
 
   return c.json({ picks: generatedPicks });
@@ -77,6 +85,8 @@ export async function ensureEntry(db: D1Database, poolId: string, userId: string
 
 async function replacePicks(db: D1Database, entryId: string, picks: GeneratedPick[]) {
   await db.prepare("DELETE FROM picks WHERE entry_id = ?").bind(entryId).run();
+  if (picks.length === 0) return;
+
   await db.batch(
     picks.map((pick) =>
       db.prepare("INSERT INTO picks (id, entry_id, match_slot, team_id, confidence, rationale) VALUES (?, ?, ?, ?, ?, ?)").bind(
