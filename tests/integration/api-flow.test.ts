@@ -62,7 +62,7 @@ describe("worker integration flow", () => {
       { method: "POST", headers: authHeaders }
     );
     expect(generated.picks.length).toBeGreaterThan(8);
-    expect(generated.picks[0]).toMatchObject({ matchSlot: "R16-1", winnerId: "arg", confidence: "default" });
+    expect(generated.picks[0]).toMatchObject({ matchSlot: "R32-73", winnerId: "ga_runner_up", confidence: "default" });
 
     await expect(request(`/pools/${pool.id}/entry/submit`, { method: "POST", headers: authHeaders })).resolves.toEqual({
       ok: true
