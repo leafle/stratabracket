@@ -26,3 +26,4 @@ database_id = "771cecde-da04-4829-8c00-f3a1624bbc39"
 [env.production.vars]
 ENVIRONMENT = "production"
 APP_ORIGIN = "https://sb.smyth.dev"
+ANTHROPIC_MODEL = "claude-sonnet-4-6"

@@ -1,6 +1,8 @@
 import { z } from "zod";
 import type { Env, GeneratedPick, TournamentContext } from "../types";
 
+const defaultAnthropicModel = "claude-sonnet-4-6";
+
 const anthropicPickSchema = z.array(
   z.object({
     match_slot: z.string().min(1),
@@ -48,7 +50,7 @@ export async function generateBracket(
       "anthropic-version": "2023-06-01"
     },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
+      model: env.ANTHROPIC_MODEL ?? defaultAnthropicModel,
       max_tokens: 2000,
       system: buildSystemPrompt(tournamentContext),
       messages: [{ role: "user", content: strategy }]
