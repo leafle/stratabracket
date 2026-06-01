@@ -26,6 +26,24 @@ function createDb(rows: Record<string, unknown[]> = {}) {
 }
 
 describe("entry routes", () => {
+  it("serves public auth routes through the production /api prefix", async () => {
+    const app = createApp();
+    const env = { DB: createDb() } as Env;
+
+    const response = await app.request(
+      "/api/auth/magic-link",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: "player@example.com", displayName: "Player" })
+      },
+      env
+    );
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({ ok: true, message: "Magic link generated" });
+  });
+
   it("rejects strategy updates for submitted entries", async () => {
     const app = createApp();
     const env = {

@@ -23,12 +23,14 @@ test("a signed-in user can generate a bracket from the SPA", async ({ page, requ
   const joinablePool = (await joinablePoolResponse.json()) as { id: string };
 
   await page.goto("/");
+  await expect(page.getByRole("navigation").getByRole("link", { name: "Pools" })).toHaveCount(0);
   await page.getByRole("textbox", { name: "Email address" }).fill("e2e@example.com");
   await page.getByRole("textbox", { name: "Display name" }).fill("E2E User");
   await page.getByRole("button", { name: "Send Sign-In Link" }).click();
   await page.getByRole("link", { name: "Open development sign-in link" }).click();
   await expect(page.getByText("Signed in")).toBeVisible();
   await page.getByRole("link", { name: "Continue" }).click();
+  await expect(page.getByRole("navigation").getByRole("link", { name: "Pools" })).toBeVisible();
 
   await page.getByRole("textbox", { name: "Pool name" }).fill(browserPoolName);
   await page.getByRole("button", { name: "Create Pool" }).click();

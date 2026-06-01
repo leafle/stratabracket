@@ -28,8 +28,8 @@ export function createApp() {
   api.route("/pools", scores);
   api.route("/", scores);
 
-  app.route("/", api);
   app.route("/api", api);
+  app.route("/", api);
 
   return app;
 }
