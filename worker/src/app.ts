@@ -9,6 +9,7 @@ import type { AppVariables, Env } from "./types";
 
 export function createApp() {
   const app = new Hono<{ Bindings: Env; Variables: AppVariables }>();
+  const api = new Hono<{ Bindings: Env; Variables: AppVariables }>();
 
   app.use(
     "*",
@@ -19,13 +20,16 @@ export function createApp() {
     })
   );
 
-  app.get("/health", (c) => c.json({ ok: true, service: "stratabracket-worker" }));
-  app.route("/auth", auth);
-  app.route("/pools", pools);
-  app.route("/pools", entries);
-  app.route("/pools", bracket);
-  app.route("/pools", scores);
-  app.route("/", scores);
+  api.get("/health", (c) => c.json({ ok: true, service: "stratabracket-worker" }));
+  api.route("/auth", auth);
+  api.route("/pools", pools);
+  api.route("/pools", entries);
+  api.route("/pools", bracket);
+  api.route("/pools", scores);
+  api.route("/", scores);
+
+  app.route("/", api);
+  app.route("/api", api);
 
   return app;
 }

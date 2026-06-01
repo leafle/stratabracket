@@ -6,6 +6,7 @@ import BracketReview from "./pages/BracketReview";
 import Home from "./pages/Home";
 import Leaderboard from "./pages/Leaderboard";
 import StrategyEntry from "./pages/StrategyEntry";
+import VerifySignIn from "./pages/VerifySignIn";
 import "./styles.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route element={<AppShell />}>
           <Route index element={<Home />} />
+          <Route path="/auth/verify" element={<VerifySignIn />} />
           <Route path="/pools/:poolId/entry" element={<StrategyEntry />} />
           <Route path="/pools/:poolId/review" element={<BracketReview />} />
           <Route path="/pools/:poolId/leaderboard" element={<Leaderboard />} />

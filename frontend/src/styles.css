@@ -18,6 +18,7 @@ a {
 }
 
 button,
+input,
 textarea {
   font: inherit;
 }
@@ -140,6 +141,42 @@ h2 {
   border: 1px solid #dce2da;
   border-radius: 8px;
   padding: 18px;
+}
+
+.auth-panel {
+  background: #ffffff;
+  border: 1px solid #dce2da;
+  border-radius: 8px;
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+  max-width: 520px;
+}
+
+.auth-form label {
+  color: #56645c;
+  display: grid;
+  font-size: 0.9rem;
+  font-weight: 750;
+  gap: 7px;
+}
+
+.auth-form input {
+  border: 1px solid #cfd8d1;
+  border-radius: 8px;
+  color: #17201c;
+  min-height: 44px;
+  padding: 0 12px;
+}
+
+.auth-status {
+  color: #56645c;
+  margin: 0;
 }
 
 .strategy-editor textarea {
