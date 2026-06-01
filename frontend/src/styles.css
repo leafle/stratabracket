@@ -117,6 +117,41 @@ h2 {
   margin-top: 40px;
 }
 
+.pool-actions {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 32px;
+}
+
+.pool-action {
+  align-items: end;
+  background: #ffffff;
+  border: 1px solid #dce2da;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 16px;
+}
+
+.pool-action label {
+  color: #56645c;
+  display: grid;
+  font-size: 0.9rem;
+  font-weight: 750;
+  gap: 7px;
+}
+
+.pool-action input {
+  border: 1px solid #cfd8d1;
+  border-radius: 8px;
+  color: #17201c;
+  min-height: 42px;
+  padding: 0 12px;
+  width: 100%;
+}
+
 .pool-row {
   align-items: center;
   background: #ffffff;
@@ -318,6 +353,11 @@ h2 {
     align-items: flex-start;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .pool-actions,
+  .pool-action {
+    grid-template-columns: 1fr;
   }
 
   .bracket {
